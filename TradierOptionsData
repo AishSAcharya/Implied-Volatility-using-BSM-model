@@ -1,0 +1,21 @@
+import configure, pprint, requests
+
+
+response = requests.get(configure.OPTION_CHAIN_URL,
+    params={'symbol': 'AAPL', 'expiration': '2020-11-05'},
+    headers=configure.HEADERS
+)
+
+print(response)
+json_response = response.json()
+print(response.status_code)
+print(json_response)
+
+options = json_response['options']['options']
+pprint.pprint(options)
+
+for option in options:
+        print(option['underlying'], option['symbol'], 
+              option['description'], option['strike'], 
+              option['bid'], option['ask'],)
+    
